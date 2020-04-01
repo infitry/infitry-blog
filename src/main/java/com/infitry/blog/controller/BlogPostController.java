@@ -44,7 +44,7 @@ public class BlogPostController {
 	List<BlogPost> blogPostAllList() {
 		List<BlogPost> result = new ArrayList<BlogPost>();
 		result = blogComponent.getBlogListAll();
-		logger.debug("list-all Size : " + result.size());
+		logger.info("list-all Size : " + result.size());
 		return result;
 	}
 	
@@ -54,9 +54,9 @@ public class BlogPostController {
 	 * @description : 블로그 포스트 목록
 	 */
 	@RequestMapping(value="/list" , method = RequestMethod.GET)
-	Page<BlogPost> blogPostList(@RequestBody Pageable paging) {
+	Page<BlogPost> blogPostList(Pageable paging) {
 		Page<BlogPost> postList = blogComponent.getBlogList(paging);
-		logger.debug("list Size : " + postList.getTotalElements());
+		logger.info("list Size : " + postList.getTotalElements());
 		return postList;
 	}
 	
@@ -68,7 +68,7 @@ public class BlogPostController {
 	@RequestMapping(value="/categories" , method = RequestMethod.GET)
 	List<PostCategory> categories() {
 		List<PostCategory> categoryList = blogComponent.getCategories();
-		logger.debug("category-list Size : " + categoryList.size());
+		logger.info("category-list Size : " + categoryList.size());
 		return categoryList;
 	}
 	
@@ -80,9 +80,6 @@ public class BlogPostController {
 	@RequestMapping(value="/create" , method = RequestMethod.POST)
 	TransResult blogPostCreate(@RequestBody BlogPost blogPost){
 		TransResult result = new TransResult(true);
-		
-		logger.debug(blogPost.toString());
-		
 		try {
 			blogComponent.createBlogPost(blogPost);
 		} catch (Exception e) {

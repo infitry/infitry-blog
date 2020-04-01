@@ -38,9 +38,6 @@ public class BlogComponent {
 	}
 	
 	public Page<BlogPost> getBlogList(Pageable paging) {
-		int page = (paging.getPageNumber() == 0) ? 0 : (paging.getPageNumber() - 1); //page는 index 처럼 0부터 시작
-		paging = PageRequest.of(page, 10);
-		
 		return blogPostRepository.findAll(paging);
 	}
 	
