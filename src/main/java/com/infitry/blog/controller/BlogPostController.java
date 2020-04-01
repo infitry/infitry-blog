@@ -39,7 +39,7 @@ public class BlogPostController {
 	 * @author leesw
 	 * @description : 블로그 포스트 전체 목록 (관리자 용)
 	 */
-	@RequestMapping(value="/list-all" , method = RequestMethod.POST)
+	@RequestMapping(value="/list-all" , method = RequestMethod.GET)
 	List<BlogPost> blogPostAllList() {
 		List<BlogPost> result = new ArrayList<BlogPost>();
 		result = blogComponent.getBlogListAll();
@@ -52,7 +52,7 @@ public class BlogPostController {
 	 * @author leesw
 	 * @description : 블로그 포스트 목록
 	 */
-	@RequestMapping(value="/list" , method = RequestMethod.POST)
+	@RequestMapping(value="/list" , method = RequestMethod.GET)
 	Page<BlogPost> blogPostList(@RequestBody Pageable paging) {
 		Page<BlogPost> postList = blogComponent.getBlogList(paging);
 		logger.debug("list Size : " + postList.getTotalElements());
