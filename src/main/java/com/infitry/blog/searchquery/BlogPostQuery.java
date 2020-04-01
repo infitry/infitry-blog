@@ -14,11 +14,11 @@ import lombok.Data;
  */
 @Data
 public class BlogPostQuery {
-	Pageable paging;
+	private Pageable paging;
 	
-	long blogPostSeq;
-	String subject;
-	String contents;
-	String regUser;
-	Date regDate;
+	private long blogPostSeq;
+	private String subject;
+	private String contents;
+	private String regUser;
+	private Date regDate;
 }

@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,28 +17,20 @@ import lombok.Data;
  * @since 2020. 4. 1.
  * @author leesw
  * @mail leesw504@gmail.com
- * @description : blogPost Entity
+ * @description : blogPostCategory Entity
  */
 @Entity
-@Table(name="INF_BLOG_POST")
+@Table(name="INF_BLOG_POST_CATEGORY")
 @Data
-public class BlogPost {
+public class PostCategory {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "BLOG_POST_SEQ", nullable = false)
-	private long blogPostSeq;
-	 
-	@ManyToOne
-	@JoinColumn(name = "BLOG_POST_CATEGORY_SEQ")
-	private PostCategory postCategory;
+	@Column(name = "BLOG_POST_CATEGORY_SEQ", nullable = false)
+	private long blogPostCategorySeq;
 	
-	@Column(name = "SUBJECT", nullable = false, length = 50)
-	private String subject;
-	
-	@Lob
-	@Column(name = "CONTENTS", nullable = false, length = 512)
-	private String contents;
+	@Column(name = "NAME", nullable = false, length = 50)
+	private String name;
 	
 	@Column(name = "REG_USER", nullable = false, length = 20)
 	private String regUser;

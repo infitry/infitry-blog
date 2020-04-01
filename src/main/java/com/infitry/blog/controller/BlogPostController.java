@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.infitry.blog.component.BlogComponent;
 import com.infitry.blog.entity.BlogPost;
+import com.infitry.blog.entity.PostCategory;
 import com.infitry.blog.result.TransResult;
 
 /**
@@ -62,11 +63,26 @@ public class BlogPostController {
 	/**
 	 * @since 2020. 4. 1.
 	 * @author leesw
+	 * @description : 블로그 포스트 목록
+	 */
+	@RequestMapping(value="/categories" , method = RequestMethod.GET)
+	List<PostCategory> categories() {
+		List<PostCategory> categoryList = blogComponent.getCategories();
+		logger.debug("category-list Size : " + categoryList.size());
+		return categoryList;
+	}
+	
+	/**
+	 * @since 2020. 4. 1.
+	 * @author leesw
 	 * @description : 블로그포스트 생성
 	 */
 	@RequestMapping(value="/create" , method = RequestMethod.POST)
 	TransResult blogPostCreate(@RequestBody BlogPost blogPost){
 		TransResult result = new TransResult(true);
+		
+		logger.debug(blogPost.toString());
+		
 		try {
 			blogComponent.createBlogPost(blogPost);
 		} catch (Exception e) {
