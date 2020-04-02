@@ -66,7 +66,7 @@ public class BlogPostController {
 	/**
 	 * @since 2020. 4. 1.
 	 * @author leesw
-	 * @description : 블로그 포스트 목록
+	 * @description : 블로그 포스트 카테고리 목록
 	 */
 	@RequestMapping(value="/categories" , method = RequestMethod.GET)
 	List<PostCategory> categories() {
@@ -81,7 +81,7 @@ public class BlogPostController {
 	 * @description : 블로그포스트 생성
 	 */
 	@RequestMapping(value="/create" , method = RequestMethod.POST)
-	TransResult blogPostCreate(@RequestBody BlogPost blogPost){
+	TransResult blogPostCreate(@RequestBody BlogPost blogPost) {
 		TransResult result = new TransResult(true);
 		try {
 			blogComponent.createBlogPost(blogPost);
@@ -90,5 +90,24 @@ public class BlogPostController {
 			result.setSuccess(false);
 		}
 		return result;
+	}
+	
+	/**
+	 * @since 2020. 4. 1.
+	 * @author leesw
+	 * @throws Exception 
+	 * @description : 블로그포스트 상세
+	 */
+	@RequestMapping(value="/detail" , method = RequestMethod.GET)
+	BlogPost blogPostCreate(long blogPostSeq) throws Exception {
+		BlogPost blogPost = new BlogPost();
+		try {
+			logger.info("blogPostSeq : " + blogPostSeq);
+			blogPost = blogComponent.getBlog(blogPostSeq);
+		} catch (Exception e) {
+			logger.error("/blog/post/detail error : " + e.getMessage());
+			throw new Exception();
+		}
+		return blogPost;
 	}
 }
