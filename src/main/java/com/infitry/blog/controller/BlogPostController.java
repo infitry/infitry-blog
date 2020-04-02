@@ -55,6 +55,9 @@ public class BlogPostController {
 	 */
 	@RequestMapping(value="/list" , method = RequestMethod.GET)
 	Page<BlogPost> blogPostList(Pageable paging) {
+		logger.info("page size : " + paging.getPageSize());
+		logger.info("page number : " + paging.getPageNumber());
+		
 		Page<BlogPost> postList = blogComponent.getBlogList(paging);
 		logger.info("list Size : " + postList.getTotalElements());
 		return postList;

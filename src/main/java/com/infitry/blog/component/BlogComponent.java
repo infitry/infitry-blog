@@ -33,11 +33,16 @@ public class BlogComponent {
 	}
 	
 	public List<BlogPost> getBlogListAll() {
+		//sort 처리 방법
 		String[] orderBy = {"regDate"};
 		return blogPostRepository.findAll(Sort.by(Sort.Direction.DESC, orderBy));
 	}
 	
 	public Page<BlogPost> getBlogList(Pageable paging) {
+		//paging sort 동시 처리 방법
+		String[] orderBy = {"regDate"};
+		paging = PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(Sort.Direction.DESC, orderBy));
+		
 		return blogPostRepository.findAll(paging);
 	}
 	
