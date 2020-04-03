@@ -49,7 +49,7 @@ public class BlogComponent {
 	public void createBlogPost(BlogPost blogPost) {
 		blogPost.setRegDate(new Date());
 		//TODO 레디스 세션을 통해 로그인한 사용자로 바꿀 것
-		blogPost.setRegUser("admin");
+		blogPost.setRegUser("infitry");
 		try {
 			blogPostRepository.save(blogPost);
 		} catch (Exception e) {
