@@ -32,6 +32,12 @@ public class BlogComponent {
 		return blogPostRepository.getOne(blogPostSeq);
 	}
 	
+	public List<PostCategory> getCategoryListAll() {
+		//sort 처리 방법
+		String[] orderBy = {"regDate"};
+		return postCategoryRepository.findAll(Sort.by(Sort.Direction.DESC, orderBy));
+	}
+	
 	public List<BlogPost> getBlogListAll() {
 		//sort 처리 방법
 		String[] orderBy = {"regDate"};
@@ -48,8 +54,6 @@ public class BlogComponent {
 	
 	public void createBlogPost(BlogPost blogPost) {
 		blogPost.setRegDate(new Date());
-		//TODO 레디스 세션을 통해 로그인한 사용자로 바꿀 것
-		blogPost.setRegUser("infitry");
 		try {
 			blogPostRepository.save(blogPost);
 		} catch (Exception e) {
