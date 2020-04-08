@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.infitry.blog.entity.BlogPost;
 import com.infitry.blog.entity.PostCategory;
+import com.infitry.blog.param.BlogPostParam;
 import com.infitry.blog.repository.BlogPostRepository;
 import com.infitry.blog.repository.PostCategoryRepository;
 
@@ -44,12 +45,18 @@ public class BlogComponent {
 		return blogPostRepository.findAll(Sort.by(Sort.Direction.DESC, orderBy));
 	}
 	
-	public Page<BlogPost> getBlogList(Pageable paging) {
+	public Page<BlogPost> getBlogList(BlogPostParam param) {
 		//paging sort 동시 처리 방법
 		String[] orderBy = {"regDate"};
-		paging = PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(Sort.Direction.DESC, orderBy));
-		
-		return blogPostRepository.findAll(paging);
+		Pageable paging = PageRequest.of(param.getPageNumber(), param.getPageSize(), Sort.by(Sort.Direction.DESC, orderBy));
+		Page<BlogPost> result = null;
+		//카테고리별로 보기 시 해당카테고리만 조회
+		if (param.getBlogPostCategorySeq() > 0) {
+			result = blogPostRepository.findByPostCategoryBlogPostCategorySeq(param.getBlogPostCategorySeq(), paging);
+		} else {
+			result = blogPostRepository.findAll(paging);
+		}
+		return result;
 	}
 	
 	public void saveBlogPost(BlogPost blogPost) {

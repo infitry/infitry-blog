@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.infitry.blog.component.BlogComponent;
 import com.infitry.blog.entity.BlogPost;
+import com.infitry.blog.param.BlogPostParam;
 import com.infitry.blog.result.TransResult;
 
 /**
@@ -52,12 +52,12 @@ public class BlogPostController {
 	 * @author leesw
 	 * @description : 블로그 포스트 목록
 	 */
-	@RequestMapping(value="/list" , method = RequestMethod.GET)
-	Page<BlogPost> blogPostList(Pageable paging) {
-		logger.info("page size : " + paging.getPageSize());
-		logger.info("page number : " + paging.getPageNumber());
+	@RequestMapping(value="/list" , method = RequestMethod.POST)
+	Page<BlogPost> blogPostList(@RequestBody BlogPostParam param) {
+		logger.info("page size : " + param.getPageSize());
+		logger.info("page number : " + param.getPageNumber());
 		
-		Page<BlogPost> postList = blogComponent.getBlogList(paging);
+		Page<BlogPost> postList = blogComponent.getBlogList(param);
 		logger.info("list Size : " + postList.getTotalElements());
 		return postList;
 	}
