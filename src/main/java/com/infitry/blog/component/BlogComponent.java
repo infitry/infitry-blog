@@ -52,8 +52,7 @@ public class BlogComponent {
 		return blogPostRepository.findAll(paging);
 	}
 	
-	public void createBlogPost(BlogPost blogPost) {
-		blogPost.setRegDate(new Date());
+	public void saveBlogPost(BlogPost blogPost) {
 		try {
 			blogPostRepository.save(blogPost);
 		} catch (Exception e) {
@@ -62,7 +61,13 @@ public class BlogComponent {
 		}
 	}
 	
-	public List<PostCategory> getCategories() {
-		return postCategoryRepository.findAll();
+	public void saveBlogCategory(PostCategory category) {
+		category.setRegDate(new Date());
+		try {
+			postCategoryRepository.save(category);
+		} catch (Exception e) {
+			logger.error("blogCategory save Error : " + e.getMessage());
+			throw e;
+		}
 	}
 }
