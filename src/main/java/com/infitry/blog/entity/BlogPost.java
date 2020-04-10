@@ -39,6 +39,9 @@ public class BlogPost {
 	@Column(name = "SUBJECT", nullable = false, length = 50)
 	private String subject;
 	
+	@Column(name = "DESCRIPTION", nullable = false, length = 150)
+	private String description;
+	
 	@Lob
 	@Column(name = "CONTENTS", nullable = false, length = 512)
 	private String contents;
