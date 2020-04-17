@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @since 2020. 4. 1.
@@ -24,7 +26,8 @@ import lombok.Data;
  */
 @Entity
 @Table(name="INF_BLOG_POST")
-@Data
+@Getter
+@Setter
 public class BlogPost {
 	
 	@Id
@@ -32,8 +35,8 @@ public class BlogPost {
 	@Column(name = "BLOG_POST_SEQ", nullable = false)
 	private long blogPostSeq;
 	 
-	@ManyToOne
-	@JoinColumn(name = "BLOG_POST_CATEGORY_SEQ")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "BLOG_POST_CATEGORY_SEQ", referencedColumnName = "BLOG_POST_CATEGORY_SEQ")
 	private PostCategory postCategory;
 	
 	@Column(name = "SUBJECT", nullable = false, length = 50)

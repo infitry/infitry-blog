@@ -1,17 +1,25 @@
 package com.infitry.blog.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @since 2020. 4. 1.
@@ -21,13 +29,18 @@ import lombok.Data;
  */
 @Entity
 @Table(name="INF_BLOG_POST_CATEGORY")
-@Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+@Getter
+@Setter
 public class PostCategory {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "BLOG_POST_CATEGORY_SEQ", nullable = false)
 	private long blogPostCategorySeq;
+	
+	@OneToMany(mappedBy = "postCategory", cascade = CascadeType.ALL)
+	private List<BlogPost> blogPosts = new ArrayList<BlogPost>();
 	
 	@Column(name = "NAME", nullable = false, length = 50)
 	private String name;
