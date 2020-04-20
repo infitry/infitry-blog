@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Formula;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -33,7 +34,6 @@ import lombok.Setter;
 @Table(name="INF_BLOG_POST_CATEGORY")
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "blogPostCategorySeq")
 public class PostCategory {
 	
 	@Id
@@ -42,6 +42,7 @@ public class PostCategory {
 	private long blogPostCategorySeq;
 	
 	@OneToMany(mappedBy = "postCategory", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<BlogPost> blogPosts = new ArrayList<BlogPost>();
 	
 	@Formula("(SELECT count(*) FROM INF_BLOG_POST A WHERE A.BLOG_POST_CATEGORY_SEQ = BLOG_POST_CATEGORY_SEQ)")

@@ -14,8 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +29,6 @@ import lombok.Setter;
 @Table(name="INF_BLOG_POST")
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "blogPostSeq")
 public class BlogPost {
 	
 	@Id
@@ -40,6 +38,7 @@ public class BlogPost {
 	 
 	@ManyToOne
 	@JoinColumn(name = "BLOG_POST_CATEGORY_SEQ", referencedColumnName = "BLOG_POST_CATEGORY_SEQ")
+	@JsonManagedReference
 	private PostCategory postCategory;
 	
 	@Column(name = "SUBJECT", nullable = false, length = 50)
