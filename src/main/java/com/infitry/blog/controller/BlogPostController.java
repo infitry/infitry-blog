@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.infitry.blog.component.BlogComponent;
 import com.infitry.blog.entity.BlogPost;
 import com.infitry.blog.param.BlogPostParam;
+import com.infitry.blog.param.PostCategoryParam;
 import com.infitry.blog.result.TransResult;
 
 /**
@@ -40,10 +41,9 @@ public class BlogPostController {
 	 * @description : 블로그 포스트 전체 목록 (관리자 용)
 	 */
 	@RequestMapping(value="/list-all" , method = RequestMethod.GET)
-	List<BlogPost> blogPostAllList() {
-		List<BlogPost> result = new ArrayList<BlogPost>();
+	List<BlogPostParam> blogPostAllList() {
+		List<BlogPostParam> result = new ArrayList<BlogPostParam>();
 		result = blogComponent.getBlogListAll();
-		logger.info("list-all Size : " + result.size());
 		return result;
 	}
 	
@@ -53,11 +53,11 @@ public class BlogPostController {
 	 * @description : 블로그 포스트 목록
 	 */
 	@RequestMapping(value="/list" , method = RequestMethod.POST)
-	Page<BlogPost> blogPostList(@RequestBody BlogPostParam param) {
+	Page<BlogPostParam> blogPostList(@RequestBody PostCategoryParam param) {
 		logger.info("page size : " + param.getPageSize());
 		logger.info("page number : " + param.getPageNumber());
 		
-		Page<BlogPost> postList = blogComponent.getBlogList(param);
+		Page<BlogPostParam> postList = blogComponent.getBlogList(param);
 		logger.info("list Size : " + postList.getTotalElements());
 		return postList;
 	}
@@ -68,7 +68,7 @@ public class BlogPostController {
 	 * @description : 블로그포스트 저장, 업데이트
 	 */
 	@RequestMapping(value="/save" , method = RequestMethod.POST)
-	TransResult blogPostCreate(@RequestBody BlogPost blogPost) {
+	TransResult blogPostCreate(@RequestBody BlogPostParam blogPost) {
 		TransResult result = new TransResult(true);
 		try {
 			blogComponent.saveBlogPost(blogPost);

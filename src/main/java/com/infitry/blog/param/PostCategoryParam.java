@@ -5,14 +5,12 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class BlogPostParam {
+public class PostCategoryParam {
 	private int pageSize;
 	private int pageNumber;
-	private long blogPostSeq;
-	private PostCategoryParam postCategory; 
-	private String subject;
-	private String description;
-	private String contents;
+	private long blogPostCategorySeq;
+	private int count;
+	private String name;
 	private String regUser;
 	private Date regDate;
 }

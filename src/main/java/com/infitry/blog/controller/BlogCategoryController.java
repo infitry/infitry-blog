@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infitry.blog.component.BlogComponent;
-import com.infitry.blog.entity.PostCategory;
+import com.infitry.blog.param.PostCategoryParam;
 import com.infitry.blog.result.TransResult;
 
 /**
@@ -38,8 +38,8 @@ public class BlogCategoryController {
 	 * @description : 블로그 카테고리 전체목록
 	 */
 	@RequestMapping(value="/list-all" , method = RequestMethod.GET)
-	List<PostCategory> blogPostAllList() {
-		List<PostCategory> result = new ArrayList<PostCategory>();
+	List<PostCategoryParam> blogPostAllList() {
+		List<PostCategoryParam> result = new ArrayList<PostCategoryParam>();
 		result = blogComponent.getCategoryListAll();
 		logger.info("list-all Size : " + result.size());
 		return result;
@@ -51,7 +51,7 @@ public class BlogCategoryController {
 	 * @description : 블로그카테고리 생성, 수정
 	 */
 	@RequestMapping(value="/save" , method = RequestMethod.POST)
-	TransResult blogPostCreate(@RequestBody PostCategory category) {
+	TransResult blogPostCreate(@RequestBody PostCategoryParam category) {
 		TransResult result = new TransResult(true);
 		try {
 			blogComponent.saveBlogCategory(category);
