@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Formula;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -29,9 +31,9 @@ import lombok.Setter;
  */
 @Entity
 @Table(name="INF_BLOG_POST_CATEGORY")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "blogPostCategorySeq")
 public class PostCategory {
 	
 	@Id
@@ -41,6 +43,9 @@ public class PostCategory {
 	
 	@OneToMany(mappedBy = "postCategory", cascade = CascadeType.ALL)
 	private List<BlogPost> blogPosts = new ArrayList<BlogPost>();
+	
+	@Formula("(SELECT count(*) FROM INF_BLOG_POST A WHERE A.BLOG_POST_CATEGORY_SEQ = BLOG_POST_CATEGORY_SEQ)")
+	private int count;
 	
 	@Column(name = "NAME", nullable = false, length = 50)
 	private String name;
